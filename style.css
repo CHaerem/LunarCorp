@@ -414,13 +414,11 @@ header {
 
 .artifact-container {
     background: var(--bg-dark);
-    border: 2px dashed var(--border);
+    border: 2px solid var(--border);
     border-radius: 10px;
-    padding: 20px;
+    padding: 0;
     min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
 }
 
 .artifact-placeholder {
