@@ -120,69 +120,101 @@ header {
     padding-bottom: 10px;
 }
 
-/* Lunar Map */
-.map-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+/* Lunar Base Visual Map */
+.lunar-map-visual {
+    grid-column: 1 / -1; /* Full width */
+    margin-bottom: 30px;
 }
 
-.sector {
+.map-visual-container {
     background: var(--bg-dark);
-    border: 2px solid var(--border);
     border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
+    padding: 10px;
     position: relative;
     overflow: hidden;
 }
 
-.sector::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+#lunarBaseSvg {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.5s;
-}
-
-.sector:hover::before {
-    left: 100%;
-}
-
-.sector:hover {
-    transform: scale(1.05);
-    border-color: var(--accent-gold);
-}
-
-.sector[data-status="active"] {
-    border-color: var(--success);
-}
-
-.sector[data-status="strike"] {
-    border-color: var(--critical);
-}
-
-.sector[data-status="depleted"] {
-    border-color: var(--text-secondary);
-    opacity: 0.6;
-}
-
-.sector-name {
+    height: auto;
     display: block;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
-.sector-status {
-    display: block;
+/* SVG Interactive elements */
+.sector-group {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sector-group:hover {
+    opacity: 1 !important;
+}
+
+.sector-group:hover circle {
+    filter: brightness(1.3);
+}
+
+.robot {
+    pointer-events: none;
+}
+
+.cargo {
+    pointer-events: none;
+}
+
+/* Map Legend */
+.map-legend {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--bg-dark);
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 0.9rem;
     color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-block;
+    border: 2px solid var(--border);
+}
+
+/* Animation classes for dynamic updates */
+@keyframes sectorPulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.sector-group.active {
+    animation: none;
+}
+
+.sector-group.strike circle:first-child {
+    animation: sectorPulse 2s infinite;
+}
+
+/* Responsive map */
+@media (max-width: 768px) {
+    .lunar-map-visual {
+        grid-column: 1;
+    }
+
+    .map-legend {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 /* Stats */

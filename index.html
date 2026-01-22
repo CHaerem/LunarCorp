@@ -26,25 +26,164 @@
             <!-- Left Side: Operations Dashboard -->
             <div class="left-panel">
 
-                <!-- Lunar Map -->
-                <section class="card lunar-map">
-                    <h2>🗺️ Lunar Mining Sectors</h2>
-                    <div class="map-container">
-                        <div class="sector" data-sector="A" data-status="active">
-                            <span class="sector-name">Brie Basin</span>
-                            <span class="sector-status">⛏️ Active</span>
+                <!-- Lunar Base Map -->
+                <section class="card lunar-map-visual">
+                    <h2>🗺️ Lunar Base Operations Map</h2>
+                    <div class="map-visual-container">
+                        <svg id="lunarBaseSvg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Moon surface background -->
+                            <defs>
+                                <radialGradient id="moonGradient">
+                                    <stop offset="0%" style="stop-color:#3a3a4a;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#1a1a2a;stop-opacity:1" />
+                                </radialGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- Base surface -->
+                            <rect width="800" height="600" fill="url(#moonGradient)"/>
+
+                            <!-- Grid lines -->
+                            <g class="grid-lines" opacity="0.2">
+                                <line x1="0" y1="150" x2="800" y2="150" stroke="#4a90e2" stroke-width="1"/>
+                                <line x1="0" y1="300" x2="800" y2="300" stroke="#4a90e2" stroke-width="1"/>
+                                <line x1="0" y1="450" x2="800" y2="450" stroke="#4a90e2" stroke-width="1"/>
+                                <line x1="200" y1="0" x2="200" y2="600" stroke="#4a90e2" stroke-width="1"/>
+                                <line x1="400" y1="0" x2="400" y2="600" stroke="#4a90e2" stroke-width="1"/>
+                                <line x1="600" y1="0" x2="600" y2="600" stroke="#4a90e2" stroke-width="1"/>
+                            </g>
+
+                            <!-- Central Hub -->
+                            <g id="centralHub" class="hub">
+                                <circle cx="400" cy="300" r="40" fill="#1a1f3a" stroke="#f4c430" stroke-width="3"/>
+                                <circle cx="400" cy="300" r="35" fill="none" stroke="#f4c430" stroke-width="1" opacity="0.3">
+                                    <animate attributeName="r" from="35" to="45" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="400" y="305" text-anchor="middle" fill="#f4c430" font-size="12" font-weight="bold">HQ</text>
+                            </g>
+
+                            <!-- Sector A: Brie Basin (Top Left) -->
+                            <g id="sectorA" class="sector-group active" data-sector="A">
+                                <circle cx="150" cy="120" r="60" fill="#2a4a2a" stroke="#2ecc71" stroke-width="3" opacity="0.7"/>
+                                <circle cx="150" cy="120" r="45" fill="none" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5">
+                                    <animateTransform attributeName="transform" type="rotate" from="0 150 120" to="360 150 120" dur="20s" repeatCount="indefinite"/>
+                                </circle>
+                                <text x="150" y="115" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">BRIE BASIN</text>
+                                <text x="150" y="130" text-anchor="middle" fill="#2ecc71" font-size="10">⛏️ Active Mining</text>
+
+                                <!-- Mining animation particles -->
+                                <circle cx="150" cy="120" r="3" fill="#f4c430" opacity="0.8">
+                                    <animate attributeName="cy" from="120" to="100" dur="1.5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.8" to="0" dur="1.5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="160" cy="130" r="3" fill="#f4c430" opacity="0.8">
+                                    <animate attributeName="cy" from="130" to="110" dur="1.8s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.8" to="0" dur="1.8s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+
+                            <!-- Sector B: Camembert Crater (Top Right) -->
+                            <g id="sectorB" class="sector-group strike" data-sector="B">
+                                <circle cx="650" cy="120" r="60" fill="#4a2a2a" stroke="#ff4757" stroke-width="3" opacity="0.7"/>
+                                <text x="650" y="110" text-anchor="middle" fill="#ff4757" font-size="14" font-weight="bold">CAMEMBERT</text>
+                                <text x="650" y="125" text-anchor="middle" fill="#ff4757" font-size="14" font-weight="bold">CRATER</text>
+                                <text x="650" y="140" text-anchor="middle" fill="#ff4757" font-size="10">🪧 ON STRIKE</text>
+
+                                <!-- Strike warning pulse -->
+                                <circle cx="650" cy="120" r="50" fill="none" stroke="#ff4757" stroke-width="2" opacity="0.5">
+                                    <animate attributeName="r" from="50" to="65" dur="1s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.5" to="0" dur="1s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+
+                            <!-- Sector C: Roquefort Ridge (Bottom Left) -->
+                            <g id="sectorC" class="sector-group active" data-sector="C">
+                                <circle cx="150" cy="480" r="60" fill="#2a3a4a" stroke="#4a90e2" stroke-width="3" opacity="0.7"/>
+                                <text x="150" y="475" text-anchor="middle" fill="#4a90e2" font-size="14" font-weight="bold">ROQUEFORT</text>
+                                <text x="150" y="490" text-anchor="middle" fill="#4a90e2" font-size="14" font-weight="bold">RIDGE</text>
+                                <text x="150" y="505" text-anchor="middle" fill="#4a90e2" font-size="10">🤖 Robot Mining</text>
+                            </g>
+
+                            <!-- Sector D: Gruyère Gulch (Bottom Right) -->
+                            <g id="sectorD" class="sector-group depleted" data-sector="D">
+                                <circle cx="650" cy="480" r="60" fill="#2a2a2a" stroke="#666" stroke-width="3" opacity="0.5"/>
+                                <text x="650" y="475" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">GRUYÈRE</text>
+                                <text x="650" y="490" text-anchor="middle" fill="#888" font-size="14" font-weight="bold">GULCH</text>
+                                <text x="650" y="505" text-anchor="middle" fill="#888" font-size="10">❌ Depleted</text>
+
+                                <!-- Diagonal warning lines -->
+                                <line x1="610" y1="440" x2="690" y2="520" stroke="#888" stroke-width="2" opacity="0.5"/>
+                                <line x1="690" y1="440" x2="610" y2="520" stroke="#888" stroke-width="2" opacity="0.5"/>
+                            </g>
+
+                            <!-- Connection lines -->
+                            <line id="line-a-hub" x1="150" y1="120" x2="400" y2="300" stroke="#2ecc71" stroke-width="2" opacity="0.5" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+                            </line>
+                            <line id="line-b-hub" x1="650" y1="120" x2="400" y2="300" stroke="#ff4757" stroke-width="2" opacity="0.3" stroke-dasharray="5,5"/>
+                            <line id="line-c-hub" x1="150" y1="480" x2="400" y2="300" stroke="#4a90e2" stroke-width="2" opacity="0.5" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+                            </line>
+                            <line id="line-d-hub" x1="650" y1="480" x2="400" y2="300" stroke="#666" stroke-width="2" opacity="0.2" stroke-dasharray="5,5"/>
+
+                            <!-- Robots -->
+                            <g id="robot1" class="robot">
+                                <circle cx="150" cy="120" r="8" fill="#f4c430" filter="url(#glow)"/>
+                                <text x="150" y="100" text-anchor="middle" fill="#f4c430" font-size="10">R-1</text>
+                                <animateMotion dur="15s" repeatCount="indefinite" path="M150,120 L400,300 L150,480 L150,120"/>
+                            </g>
+
+                            <g id="robot2" class="robot">
+                                <circle cx="400" cy="300" r="8" fill="#4a90e2" filter="url(#glow)"/>
+                                <text x="400" y="280" text-anchor="middle" fill="#4a90e2" font-size="10">R-2</text>
+                                <animateMotion dur="12s" repeatCount="indefinite" path="M400,300 L150,480 L150,120 L400,300"/>
+                            </g>
+
+                            <g id="robot3" class="robot">
+                                <circle cx="150" cy="480" r="8" fill="#2ecc71" filter="url(#glow)"/>
+                                <text x="150" y="460" text-anchor="middle" fill="#2ecc71" font-size="10">R-3</text>
+                                <animateMotion dur="18s" repeatCount="indefinite" path="M150,480 L400,300 L150,120 L150,480"/>
+                            </g>
+
+                            <!-- Cheese transport cargo -->
+                            <g id="cargo1" class="cargo">
+                                <rect x="-10" y="-5" width="20" height="10" fill="#f4c430" opacity="0.8" rx="2"/>
+                                <animateMotion dur="10s" repeatCount="indefinite" path="M150,120 L400,300">
+                                    <animate attributeName="opacity" values="0;1;1;0" dur="10s" repeatCount="indefinite"/>
+                                </animateMotion>
+                            </g>
+
+                            <g id="cargo2" class="cargo">
+                                <rect x="-10" y="-5" width="20" height="10" fill="#4a90e2" opacity="0.8" rx="2"/>
+                                <animateMotion dur="8s" repeatCount="indefinite" path="M150,480 L400,300">
+                                    <animate attributeName="opacity" values="0;1;1;0" dur="8s" repeatCount="indefinite"/>
+                                </animateMotion>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="map-legend">
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #2ecc71;"></span>
+                            <span>Active Mining</span>
                         </div>
-                        <div class="sector" data-sector="B" data-status="strike">
-                            <span class="sector-name">Camembert Crater</span>
-                            <span class="sector-status">🪧 Strike</span>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #4a90e2;"></span>
+                            <span>Robot Operations</span>
                         </div>
-                        <div class="sector" data-sector="C" data-status="active">
-                            <span class="sector-name">Roquefort Ridge</span>
-                            <span class="sector-status">🤖 Robot</span>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #ff4757;"></span>
+                            <span>Strike / Offline</span>
                         </div>
-                        <div class="sector" data-sector="D" data-status="depleted">
-                            <span class="sector-name">Gruyère Gulch</span>
-                            <span class="sector-status">❌ Depleted</span>
+                        <div class="legend-item">
+                            <span class="legend-color" style="background: #666;"></span>
+                            <span>Depleted</span>
                         </div>
                     </div>
                 </section>

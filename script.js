@@ -122,27 +122,97 @@ function updateStats() {
     }
 }
 
-// Sector interaction
-function handleSectorClick(e) {
-    const sector = e.currentTarget;
-    const sectorName = sector.querySelector('.sector-name').textContent;
-    const status = sector.dataset.status;
+// Sector interaction for SVG map
+function handleSvgSectorClick(e) {
+    const sectorGroup = e.currentTarget;
+    const sectorId = sectorGroup.getAttribute('data-sector');
 
-    // Create a subtle feedback
-    sector.style.transform = 'scale(1.05)';
+    // Get sector info
+    const sectorNames = {
+        'A': 'Brie Basin',
+        'B': 'Camembert Crater',
+        'C': 'Roquefort Ridge',
+        'D': 'Gruyère Gulch'
+    };
+
+    const sectorName = sectorNames[sectorId];
+    const circle = sectorGroup.querySelector('circle');
+
+    // Visual feedback
+    const originalOpacity = circle.getAttribute('opacity') || '0.7';
+    circle.setAttribute('opacity', '1');
+
     setTimeout(() => {
-        sector.style.transform = '';
-    }, 200);
+        circle.setAttribute('opacity', originalOpacity);
+    }, 300);
 
-    console.log(`Clicked on ${sectorName} - Status: ${status}`);
+    console.log(`Clicked on ${sectorName} (Sector ${sectorId})`);
+
+    // Could trigger a modal or info panel here
+    showSectorInfo(sectorName, sectorId);
 }
 
-// Add click handlers to sectors
+// Show sector information (you can expand this)
+function showSectorInfo(name, id) {
+    // For now, just console log - could be expanded to show modal
+    const statusInfo = {
+        'A': { status: 'Active Mining', production: '450kg/day', workers: '2 robots' },
+        'B': { status: 'ON STRIKE', production: '0kg/day', workers: '8 workers (striking)' },
+        'C': { status: 'Robot Operations', production: '380kg/day', workers: '3 robots' },
+        'D': { status: 'Depleted', production: '0kg/day', workers: 'None' }
+    };
+
+    const info = statusInfo[id];
+    console.log(`${name}: ${info.status} - ${info.production}, ${info.workers}`);
+}
+
+// Add click handlers to SVG sectors
 function initializeSectors() {
-    const sectors = document.querySelectorAll('.sector');
-    sectors.forEach(sector => {
-        sector.addEventListener('click', handleSectorClick);
+    const sectorGroups = document.querySelectorAll('.sector-group');
+    sectorGroups.forEach(group => {
+        group.addEventListener('click', handleSvgSectorClick);
+        group.style.cursor = 'pointer';
     });
+}
+
+// Simulate dynamic sector status changes
+function simulateSectorChanges() {
+    setInterval(() => {
+        // Randomly change Camembert Crater between strike and active
+        const sectorB = document.getElementById('sectorB');
+        const isStrike = sectorB.classList.contains('strike');
+
+        // 20% chance to change status
+        if (Math.random() < 0.2) {
+            if (isStrike) {
+                // End strike
+                sectorB.classList.remove('strike');
+                sectorB.classList.add('active');
+                const circle = sectorB.querySelector('circle');
+                circle.setAttribute('stroke', '#2ecc71');
+                circle.setAttribute('fill', '#2a4a2a');
+
+                const statusText = sectorB.querySelectorAll('text')[2];
+                statusText.textContent = '⛏️ Active Mining';
+                statusText.setAttribute('fill', '#2ecc71');
+
+                console.log('🎉 Camembert Crater workers ended their strike!');
+            } else {
+                // Start strike
+                sectorB.classList.remove('active');
+                sectorB.classList.add('strike');
+                const circle = sectorB.querySelector('circle');
+                circle.setAttribute('stroke', '#ff4757');
+                circle.setAttribute('fill', '#4a2a2a');
+
+                const statusText = sectorB.querySelectorAll('text')[2];
+                statusText.textContent = '🪧 ON STRIKE';
+                statusText.setAttribute('fill', '#ff4757');
+
+                console.log('😤 Camembert Crater workers went on strike again!');
+            }
+        }
+    }, 15000); // Check every 15 seconds
 }
 
 // Simulate production updates
@@ -213,10 +283,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start simulations
     simulateProduction();
     simulateRobotStatus();
+    simulateSectorChanges();
     updateFlightETA();
 
     console.log('🌙 Lunar Corp Command Center initialized');
     console.log('Drag tasks between columns to manage operations');
+    console.log('Click on sectors to view detailed information');
 });
 
 // Easter egg: Konami code for crisis level
