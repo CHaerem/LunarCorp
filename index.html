@@ -8,15 +8,24 @@
 </head>
 <body>
     <div class="container">
+        <!-- Floating cheese decorations -->
+        <div class="floating-cheese">
+            <span class="cheese-float" style="left: 5%; animation-delay: 0s;">🧀</span>
+            <span class="cheese-float" style="left: 15%; animation-delay: 2s;">🧀</span>
+            <span class="cheese-float" style="left: 85%; animation-delay: 1s;">🧀</span>
+            <span class="cheese-float" style="left: 95%; animation-delay: 3s;">🧀</span>
+        </div>
+
         <!-- Header -->
         <header>
             <div class="logo">
-                <h1>🌙 LUNAR CORP</h1>
-                <p class="tagline">Extraterrestrial Cheese Mining Division</p>
+                <h1>🌙 LUNAR CORP 🧀</h1>
+                <p class="tagline">🇫🇷 Extraterrestrial Fromage Mining Division 🇫🇷</p>
+                <p class="tagline-sub">"Saving France, One Wheel at a Time"</p>
             </div>
             <div class="crisis-level">
                 <span class="label">Crisis Level:</span>
-                <span class="value critical">CRITIQUE</span>
+                <span class="value critical">CRITIQUE 🧀</span>
             </div>
         </header>
 
@@ -31,14 +40,33 @@
                     <h2>🗺️ Lunar Base Operations Map</h2>
                     <div class="map-visual-container">
                         <svg id="lunarBaseSvg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Moon surface background -->
+                            <!-- Definitions -->
                             <defs>
+                                <!-- Moon surface gradient -->
                                 <radialGradient id="moonGradient">
-                                    <stop offset="0%" style="stop-color:#3a3a4a;stop-opacity:1" />
+                                    <stop offset="0%" style="stop-color:#4a4a5a;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#2a2a3a;stop-opacity:1" />
                                     <stop offset="100%" style="stop-color:#1a1a2a;stop-opacity:1" />
                                 </radialGradient>
-                                <filter id="glow">
-                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+
+                                <!-- Crater gradient for depth -->
+                                <radialGradient id="craterGradient">
+                                    <stop offset="0%" style="stop-color:#1a1a2a;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#3a3a4a;stop-opacity:1" />
+                                </radialGradient>
+
+                                <!-- Cheese glow filter -->
+                                <filter id="cheeseGlow">
+                                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+
+                                <!-- Mining glow -->
+                                <filter id="miningGlow">
+                                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
                                     <feMerge>
                                         <feMergeNode in="coloredBlur"/>
                                         <feMergeNode in="SourceGraphic"/>
@@ -46,47 +74,99 @@
                                 </filter>
                             </defs>
 
-                            <!-- Base surface -->
-                            <rect width="800" height="600" fill="url(#moonGradient)"/>
+                            <!-- Space background -->
+                            <rect width="800" height="600" fill="#0a0a15"/>
 
-                            <!-- Grid lines -->
-                            <g class="grid-lines" opacity="0.2">
-                                <line x1="0" y1="150" x2="800" y2="150" stroke="#4a90e2" stroke-width="1"/>
-                                <line x1="0" y1="300" x2="800" y2="300" stroke="#4a90e2" stroke-width="1"/>
-                                <line x1="0" y1="450" x2="800" y2="450" stroke="#4a90e2" stroke-width="1"/>
-                                <line x1="200" y1="0" x2="200" y2="600" stroke="#4a90e2" stroke-width="1"/>
-                                <line x1="400" y1="0" x2="400" y2="600" stroke="#4a90e2" stroke-width="1"/>
-                                <line x1="600" y1="0" x2="600" y2="600" stroke="#4a90e2" stroke-width="1"/>
+                            <!-- Stars -->
+                            <g class="stars" opacity="0.8">
+                                <circle cx="50" cy="40" r="1" fill="white"/>
+                                <circle cx="120" cy="80" r="1.5" fill="white"/>
+                                <circle cx="200" cy="30" r="1" fill="white"/>
+                                <circle cx="380" cy="50" r="1" fill="white"/>
+                                <circle cx="500" cy="90" r="1.5" fill="white"/>
+                                <circle cx="650" cy="45" r="1" fill="white"/>
+                                <circle cx="730" cy="70" r="1" fill="white"/>
+                                <circle cx="90" cy="520" r="1" fill="white"/>
+                                <circle cx="250" cy="550" r="1.5" fill="white"/>
+                                <circle cx="450" cy="570" r="1" fill="white"/>
+                                <circle cx="680" cy="540" r="1" fill="white"/>
+                                <circle cx="760" cy="520" r="1.5" fill="white"/>
+                            </g>
+
+                            <!-- Moon surface -->
+                            <ellipse cx="400" cy="300" rx="420" ry="320" fill="url(#moonGradient)"/>
+
+                            <!-- Moon craters for realism -->
+                            <g class="craters" opacity="0.5">
+                                <ellipse cx="280" cy="200" rx="35" ry="30" fill="url(#craterGradient)"/>
+                                <ellipse cx="520" cy="250" rx="25" ry="22" fill="url(#craterGradient)"/>
+                                <ellipse cx="330" cy="420" rx="40" ry="35" fill="url(#craterGradient)"/>
+                                <ellipse cx="570" cy="380" rx="30" ry="28" fill="url(#craterGradient)"/>
+                                <ellipse cx="220" cy="350" rx="20" ry="18" fill="url(#craterGradient)"/>
+                                <ellipse cx="690" cy="290" rx="28" ry="25" fill="url(#craterGradient)"/>
+                            </g>
+
+                            <!-- Subtle terrain texture -->
+                            <g class="terrain" opacity="0.15">
+                                <path d="M 100 250 Q 200 240 300 250 T 500 250 T 700 250" stroke="#5a5a6a" stroke-width="1" fill="none"/>
+                                <path d="M 50 350 Q 150 345 250 350 T 450 350 T 750 350" stroke="#5a5a6a" stroke-width="1" fill="none"/>
+                                <path d="M 150 450 Q 300 445 450 450 T 650 450" stroke="#5a5a6a" stroke-width="1" fill="none"/>
                             </g>
 
                             <!-- Central Hub -->
                             <g id="centralHub" class="hub">
-                                <circle cx="400" cy="300" r="40" fill="#1a1f3a" stroke="#f4c430" stroke-width="3"/>
+                                <circle cx="400" cy="300" r="40" fill="#1a1f3a" stroke="#f4c430" stroke-width="3" filter="url(#cheeseGlow)"/>
                                 <circle cx="400" cy="300" r="35" fill="none" stroke="#f4c430" stroke-width="1" opacity="0.3">
                                     <animate attributeName="r" from="35" to="45" dur="2s" repeatCount="indefinite"/>
                                     <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
                                 </circle>
-                                <text x="400" y="305" text-anchor="middle" fill="#f4c430" font-size="12" font-weight="bold">HQ</text>
+
+                                <!-- Cheese storage indication -->
+                                <text x="400" y="295" text-anchor="middle" fill="#f4c430" font-size="20">🧀</text>
+                                <text x="400" y="312" text-anchor="middle" fill="#f4c430" font-size="10" font-weight="bold">HQ STORAGE</text>
+
+                                <!-- Floating cheese around HQ -->
+                                <text x="370" y="280" text-anchor="middle" font-size="12" opacity="0.7">🧀
+                                    <animateTransform attributeName="transform" type="rotate" from="0 400 300" to="360 400 300" dur="15s" repeatCount="indefinite"/>
+                                </text>
+                                <text x="430" y="280" text-anchor="middle" font-size="12" opacity="0.7">🧀
+                                    <animateTransform attributeName="transform" type="rotate" from="180 400 300" to="540 400 300" dur="15s" repeatCount="indefinite"/>
+                                </text>
+                                <text x="370" y="320" text-anchor="middle" font-size="12" opacity="0.7">🧀
+                                    <animateTransform attributeName="transform" type="rotate" from="90 400 300" to="450 400 300" dur="15s" repeatCount="indefinite"/>
+                                </text>
+                                <text x="430" y="320" text-anchor="middle" font-size="12" opacity="0.7">🧀
+                                    <animateTransform attributeName="transform" type="rotate" from="270 400 300" to="630 400 300" dur="15s" repeatCount="indefinite"/>
+                                </text>
                             </g>
 
                             <!-- Sector A: Brie Basin (Top Left) -->
                             <g id="sectorA" class="sector-group active" data-sector="A">
+                                <!-- Outer mining zone -->
                                 <circle cx="150" cy="120" r="60" fill="#2a4a2a" stroke="#2ecc71" stroke-width="3" opacity="0.7"/>
+
+                                <!-- Cheese deposit visualization (yellow spots) -->
+                                <circle cx="140" cy="115" r="8" fill="#f4c430" opacity="0.3"/>
+                                <circle cx="165" cy="125" r="6" fill="#f4c430" opacity="0.4"/>
+                                <circle cx="150" cy="135" r="7" fill="#f4c430" opacity="0.35"/>
+
+                                <!-- Scanning ring -->
                                 <circle cx="150" cy="120" r="45" fill="none" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,5">
                                     <animateTransform attributeName="transform" type="rotate" from="0 150 120" to="360 150 120" dur="20s" repeatCount="indefinite"/>
                                 </circle>
+
                                 <text x="150" y="115" text-anchor="middle" fill="#2ecc71" font-size="14" font-weight="bold">BRIE BASIN</text>
                                 <text x="150" y="130" text-anchor="middle" fill="#2ecc71" font-size="10">⛏️ Active Mining</text>
 
-                                <!-- Mining animation particles -->
-                                <circle cx="150" cy="120" r="3" fill="#f4c430" opacity="0.8">
-                                    <animate attributeName="cy" from="120" to="100" dur="1.5s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" from="0.8" to="0" dur="1.5s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="160" cy="130" r="3" fill="#f4c430" opacity="0.8">
-                                    <animate attributeName="cy" from="130" to="110" dur="1.8s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" from="0.8" to="0" dur="1.8s" repeatCount="indefinite"/>
-                                </circle>
+                                <!-- Cheese particles being mined -->
+                                <text x="150" y="120" text-anchor="middle" font-size="16" opacity="0.9" filter="url(#cheeseGlow)">🧀
+                                    <animate attributeName="y" from="120" to="95" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.9" to="0" dur="2s" repeatCount="indefinite"/>
+                                </text>
+                                <text x="160" y="130" text-anchor="middle" font-size="16" opacity="0.9" filter="url(#cheeseGlow)">🧀
+                                    <animate attributeName="y" from="130" to="105" dur="2.5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.9" to="0" dur="2.5s" repeatCount="indefinite"/>
+                                </text>
                             </g>
 
                             <!-- Sector B: Camembert Crater (Top Right) -->
@@ -105,10 +185,23 @@
 
                             <!-- Sector C: Roquefort Ridge (Bottom Left) -->
                             <g id="sectorC" class="sector-group active" data-sector="C">
+                                <!-- Mining zone -->
                                 <circle cx="150" cy="480" r="60" fill="#2a3a4a" stroke="#4a90e2" stroke-width="3" opacity="0.7"/>
+
+                                <!-- Blue cheese deposits (with holes!) -->
+                                <circle cx="145" cy="470" r="9" fill="#6a8caf" opacity="0.4"/>
+                                <circle cx="160" cy="485" r="7" fill="#6a8caf" opacity="0.5"/>
+                                <circle cx="140" cy="490" r="6" fill="#6a8caf" opacity="0.45"/>
+
                                 <text x="150" y="475" text-anchor="middle" fill="#4a90e2" font-size="14" font-weight="bold">ROQUEFORT</text>
                                 <text x="150" y="490" text-anchor="middle" fill="#4a90e2" font-size="14" font-weight="bold">RIDGE</text>
                                 <text x="150" y="505" text-anchor="middle" fill="#4a90e2" font-size="10">🤖 Robot Mining</text>
+
+                                <!-- Blue cheese extraction -->
+                                <text x="155" y="480" text-anchor="middle" font-size="16" opacity="0.9" filter="url(#cheeseGlow)">🧀
+                                    <animate attributeName="y" from="480" to="455" dur="2.2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" from="0.9" to="0" dur="2.2s" repeatCount="indefinite"/>
+                                </text>
                             </g>
 
                             <!-- Sector D: Gruyère Gulch (Bottom Right) -->
@@ -154,16 +247,23 @@
 
                             <!-- Cheese transport cargo -->
                             <g id="cargo1" class="cargo">
-                                <rect x="-10" y="-5" width="20" height="10" fill="#f4c430" opacity="0.8" rx="2"/>
+                                <text x="0" y="0" text-anchor="middle" font-size="20" filter="url(#cheeseGlow)">🧀</text>
                                 <animateMotion dur="10s" repeatCount="indefinite" path="M150,120 L400,300">
                                     <animate attributeName="opacity" values="0;1;1;0" dur="10s" repeatCount="indefinite"/>
                                 </animateMotion>
                             </g>
 
                             <g id="cargo2" class="cargo">
-                                <rect x="-10" y="-5" width="20" height="10" fill="#4a90e2" opacity="0.8" rx="2"/>
+                                <text x="0" y="0" text-anchor="middle" font-size="20" filter="url(#cheeseGlow)">🧀</text>
                                 <animateMotion dur="8s" repeatCount="indefinite" path="M150,480 L400,300">
                                     <animate attributeName="opacity" values="0;1;1;0" dur="8s" repeatCount="indefinite"/>
+                                </animateMotion>
+                            </g>
+
+                            <g id="cargo3" class="cargo">
+                                <text x="0" y="0" text-anchor="middle" font-size="18" filter="url(#cheeseGlow)">🧀</text>
+                                <animateMotion dur="12s" repeatCount="indefinite" path="M400,300 L650,120">
+                                    <animate attributeName="opacity" values="0;1;1;0" dur="12s" repeatCount="indefinite"/>
                                 </animateMotion>
                             </g>
                         </svg>
@@ -190,21 +290,25 @@
 
                 <!-- Production Stats -->
                 <section class="card stats">
-                    <h2>📊 Production Stats</h2>
+                    <h2>🧀 Fromage Production Stats</h2>
                     <div class="stat-grid">
-                        <div class="stat-item">
+                        <div class="stat-item cheese-stat">
+                            <span class="stat-icon">🧀</span>
                             <span class="stat-value">1,247</span>
-                            <span class="stat-label">kg today</span>
+                            <span class="stat-label">kg cheese today</span>
                         </div>
                         <div class="stat-item">
+                            <span class="stat-icon">⚡</span>
                             <span class="stat-value">34%</span>
                             <span class="stat-label">efficiency</span>
                         </div>
                         <div class="stat-item">
+                            <span class="stat-icon">🤖</span>
                             <span class="stat-value">6/12</span>
                             <span class="stat-label">robots active</span>
                         </div>
                         <div class="stat-item critical-stat">
+                            <span class="stat-icon">🪧</span>
                             <span class="stat-value">8</span>
                             <span class="stat-label">workers on strike</span>
                         </div>
@@ -255,24 +359,24 @@
 
                 <!-- Munster Mariner Flight Tracker -->
                 <section class="card flight-tracker">
-                    <h2>🚀 Munster Mariner Flight Status</h2>
+                    <h2>🚀 Munster Mariner Flight Status 🧀</h2>
                     <div class="flight-info">
                         <div class="flight-route">
                             <span class="location">🌙 Lunar Base</span>
-                            <span class="route-line">━━━━━━━━━━━━━━━</span>
-                            <span class="location">🌍 Paris CDG</span>
+                            <span class="route-line">━━🧀━━━🧀━━━🧀━━</span>
+                            <span class="location">🗼 Paris CDG</span>
                         </div>
                         <div class="flight-details">
                             <div class="detail">
-                                <span class="detail-label">ETA:</span>
+                                <span class="detail-label">⏱️ ETA:</span>
                                 <span class="detail-value">48h 23m</span>
                             </div>
                             <div class="detail">
-                                <span class="detail-label">Cargo:</span>
-                                <span class="detail-value">2,400kg Premium Fromage</span>
+                                <span class="detail-label">🧀 Cargo:</span>
+                                <span class="detail-value">2,400kg Fromage</span>
                             </div>
                             <div class="detail">
-                                <span class="detail-label">Status:</span>
+                                <span class="detail-label">📊 Status:</span>
                                 <span class="detail-value status-ok">✓ On Schedule</span>
                             </div>
                         </div>
