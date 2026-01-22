@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌙 Lunar Corp - Command Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <h1>🌙 LUNAR CORP</h1>
+                <p class="tagline">Extraterrestrial Cheese Mining Division</p>
+            </div>
+            <div class="crisis-level">
+                <span class="label">Crisis Level:</span>
+                <span class="value critical">CRITIQUE</span>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <div class="main-grid">
+
+            <!-- Left Side: Operations Dashboard -->
+            <div class="left-panel">
+
+                <!-- Lunar Map -->
+                <section class="card lunar-map">
+                    <h2>🗺️ Lunar Mining Sectors</h2>
+                    <div class="map-container">
+                        <div class="sector" data-sector="A" data-status="active">
+                            <span class="sector-name">Brie Basin</span>
+                            <span class="sector-status">⛏️ Active</span>
+                        </div>
+                        <div class="sector" data-sector="B" data-status="strike">
+                            <span class="sector-name">Camembert Crater</span>
+                            <span class="sector-status">🪧 Strike</span>
+                        </div>
+                        <div class="sector" data-sector="C" data-status="active">
+                            <span class="sector-name">Roquefort Ridge</span>
+                            <span class="sector-status">🤖 Robot</span>
+                        </div>
+                        <div class="sector" data-sector="D" data-status="depleted">
+                            <span class="sector-name">Gruyère Gulch</span>
+                            <span class="sector-status">❌ Depleted</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Production Stats -->
+                <section class="card stats">
+                    <h2>📊 Production Stats</h2>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">1,247</span>
+                            <span class="stat-label">kg today</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">34%</span>
+                            <span class="stat-label">efficiency</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">6/12</span>
+                            <span class="stat-label">robots active</span>
+                        </div>
+                        <div class="stat-item critical-stat">
+                            <span class="stat-value">8</span>
+                            <span class="stat-label">workers on strike</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Task Management -->
+                <section class="card tasks">
+                    <h2>📋 Operations Task Board</h2>
+                    <div class="task-board">
+                        <div class="task-column">
+                            <h3>À faire</h3>
+                            <div class="task-list" id="todo">
+                                <div class="task-card" draggable="true">
+                                    <span class="task-priority high">HIGH</span>
+                                    <p>Deploy Robot-7 to Brie Basin</p>
+                                </div>
+                                <div class="task-card" draggable="true">
+                                    <span class="task-priority medium">MED</span>
+                                    <p>Negotiate with striking workers</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-column">
+                            <h3>En cours</h3>
+                            <div class="task-list" id="inprogress">
+                                <div class="task-card" draggable="true">
+                                    <span class="task-priority high">HIGH</span>
+                                    <p>Extract Roquefort vein #3</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-column">
+                            <h3>Fait</h3>
+                            <div class="task-list" id="done">
+                                <div class="task-card" draggable="true">
+                                    <span class="task-priority low">LOW</span>
+                                    <p>Inventory wine cellar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-task-section">
+                        <input type="text" id="newTaskInput" placeholder="New task...">
+                        <button id="addTaskBtn">+ Add Task</button>
+                    </div>
+                </section>
+
+                <!-- Munster Mariner Flight Tracker -->
+                <section class="card flight-tracker">
+                    <h2>🚀 Munster Mariner Flight Status</h2>
+                    <div class="flight-info">
+                        <div class="flight-route">
+                            <span class="location">🌙 Lunar Base</span>
+                            <span class="route-line">━━━━━━━━━━━━━━━</span>
+                            <span class="location">🌍 Paris CDG</span>
+                        </div>
+                        <div class="flight-details">
+                            <div class="detail">
+                                <span class="detail-label">ETA:</span>
+                                <span class="detail-value">48h 23m</span>
+                            </div>
+                            <div class="detail">
+                                <span class="detail-label">Cargo:</span>
+                                <span class="detail-value">2,400kg Premium Fromage</span>
+                            </div>
+                            <div class="detail">
+                                <span class="detail-label">Status:</span>
+                                <span class="detail-value status-ok">✓ On Schedule</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Side: Jean-Claude Chat -->
+            <div class="right-panel">
+                <section class="card chat-section">
+                    <h2>💬 Message from CEO</h2>
+                    <p class="chat-instructions">Speak with Jean-Claude Fromage for guidance (or complaints)</p>
+
+                    <!-- Placeholder for Claude Artifact -->
+                    <div class="artifact-container">
+                        <div class="artifact-placeholder">
+                            <p>🧀 Jean-Claude will appear here</p>
+                            <p class="placeholder-hint">Paste your Claude Artifact iframe below</p>
+                        </div>
+
+                        <!-- REPLACE THIS COMMENT WITH YOUR CLAUDE ARTIFACT IFRAME -->
+                        <!-- Example: <iframe src="https://claude.site/artifacts/..." width="100%" height="600"></iframe> -->
+
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Lunar Corp - A Fromage Family Legacy | "Brie-the easier with automation"</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
