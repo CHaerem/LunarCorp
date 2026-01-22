@@ -450,7 +450,7 @@ header {
     border-radius: var(--space-sm);
     overflow: hidden;
     background: var(--bg-surface);
-    height: 600px;
+    height: 800px;
     position: relative;
 }
 
