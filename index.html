@@ -36,28 +36,20 @@
             <section class="card lunar-map-visual">
                     <h2>🗺️ Lunar Fromage Mining Map 🧀</h2>
                     <div class="map-visual-container">
-                        <svg id="lunarBaseSvg" viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
-    <!-- 2.5D Isometric Cheese Mining Map -->
+                        <svg id="lunarBaseSvg" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- Detailed 2.5D Isometric Moon Base Map -->
 
     <defs>
-        <!-- Gradients for 3D effect -->
-        <linearGradient id="moonGround" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#d4d4d8;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#a1a1aa;stop-opacity:1" />
-        </linearGradient>
+        <!-- Moon surface gradient -->
+        <radialGradient id="moonSurface">
+            <stop offset="0%" style="stop-color:#d4d4d8"/>
+            <stop offset="100%" style="stop-color:#71717a"/>
+        </radialGradient>
 
-        <linearGradient id="cheeseGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:0.8" />
-            <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:0.6" />
-        </linearGradient>
-
-        <!-- Shadow filter -->
-        <filter id="dropShadow">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-            <feOffset dx="4" dy="6" result="offsetblur"/>
-            <feComponentTransfer>
-                <feFuncA type="linear" slope="0.3"/>
-            </feComponentTransfer>
+        <!-- Drop shadow -->
+        <filter id="shadow">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="3" dy="5"/>
             <feMerge>
                 <feMergeNode/>
                 <feMergeNode in="SourceGraphic"/>
@@ -65,185 +57,233 @@
         </filter>
     </defs>
 
-    <!-- Background - Space -->
-    <rect width="1000" height="600" fill="#0f172a"/>
+    <!-- Space Background -->
+    <rect width="1200" height="700" fill="#0a0e1a"/>
 
     <!-- Stars -->
-    <g class="stars" opacity="0.7">
-        <circle cx="100" cy="50" r="1" fill="white"/>
-        <circle cx="200" cy="80" r="1.5" fill="white"/>
-        <circle cx="350" cy="40" r="1" fill="white"/>
-        <circle cx="600" cy="70" r="1.2" fill="white"/>
-        <circle cx="800" cy="60" r="1" fill="white"/>
-        <circle cx="900" cy="90" r="1.5" fill="white"/>
-        <circle cx="150" cy="530" r="1" fill="white"/>
-        <circle cx="700" cy="550" r="1" fill="white"/>
+    <g class="stars">
+        <circle cx="100" cy="50" r="1.5" fill="white" opacity="0.8"/>
+        <circle cx="250" cy="80" r="1" fill="white" opacity="0.9"/>
+        <circle cx="400" cy="40" r="1.2" fill="white"/>
+        <circle cx="650" cy="90" r="1" fill="white" opacity="0.7"/>
+        <circle cx="850" cy="60" r="1.5" fill="white"/>
+        <circle cx="1000" cy="100" r="1" fill="white" opacity="0.8"/>
+        <circle cx="200" cy="600" r="1" fill="white"/>
+        <circle cx="800" cy="650" r="1.2" fill="white" opacity="0.9"/>
     </g>
 
-    <!-- Moon surface (isometric ground plane) -->
-    <path d="M 100 450 L 500 250 L 900 450 L 500 550 Z" fill="url(#moonGround)" opacity="0.9"/>
+    <!-- Complete Moon Surface -->
+    <!-- Background moon (partial sphere visible behind) -->
+    <ellipse cx="600" cy="550" rx="450" ry="200" fill="#52525b" opacity="0.3"/>
 
-    <!-- Grid on surface for depth -->
-    <g stroke="#71717a" stroke-width="1" opacity="0.2">
-        <line x1="300" y1="350" x2="300" y2="500"/>
-        <line x1="500" y1="250" x2="500" y2="550"/>
-        <line x1="700" y1="350" x2="700" y2="500"/>
-        <line x1="200" y1="400" x2="800" y2="400"/>
-        <line x1="250" y1="425" x2="750" y2="425"/>
-    </g>
+    <!-- Main operational surface (isometric diamond) -->
+    <path d="M 150 500 L 600 250 L 1050 500 L 600 650 Z"
+          fill="url(#moonSurface)" opacity="0.95" stroke="#71717a" stroke-width="3"/>
 
-    <!-- SECTOR A: Brie Basin - Top Left (Active - Green) -->
-    <g id="sectorA" class="sector-group" data-sector="A" filter="url(#dropShadow)">
-        <!-- Base platform (isometric) -->
-        <path d="M 200 320 L 280 280 L 280 300 L 200 340 Z" fill="#10b981" opacity="0.3"/>
-        <path d="M 120 360 L 200 320 L 280 280 L 200 300 Z" fill="#10b981" opacity="0.2"/>
+    <!-- Surface edge highlights for 3D depth -->
+    <path d="M 150 500 L 600 250" stroke="#d4d4d8" stroke-width="2" opacity="0.6"/>
+    <path d="M 600 250 L 1050 500" stroke="#d4d4d8" stroke-width="2" opacity="0.6"/>
+    <path d="M 1050 500 L 600 650" stroke="#3f3f46" stroke-width="2" opacity="0.8"/>
+    <path d="M 600 650 L 150 500" stroke="#3f3f46" stroke-width="2" opacity="0.8"/>
 
-        <!-- Building cube -->
-        <path d="M 140 330 L 180 310 L 180 280 L 140 300 Z" fill="#10b981"/>
-        <path d="M 180 310 L 220 290 L 220 260 L 180 280 Z" fill="#059669"/>
-        <path d="M 140 300 L 180 280 L 220 260 L 180 280 L 140 300 Z" fill="#34d399"/>
+    <!-- Craters on operational surface -->
+    <ellipse cx="300" cy="480" rx="40" ry="20" fill="#52525b" opacity="0.5"/>
+    <ellipse cx="850" cy="520" rx="35" ry="18" fill="#52525b" opacity="0.4"/>
+    <ellipse cx="500" cy="580" rx="25" ry="12" fill="#52525b" opacity="0.5"/>
+    <ellipse cx="700" cy="350" rx="30" ry="15" fill="#52525b" opacity="0.4"/>
+    <ellipse cx="400" cy="420" rx="35" ry="18" fill="#52525b" opacity="0.3"/>
+    <ellipse cx="750" cy="480" rx="28" ry="14" fill="#52525b" opacity="0.4"/>
 
-        <!-- Cheese deposit -->
-        <text x="160" y="345" font-size="20">🧀</text>
-        <text x="190" y="335" font-size="16">🧀</text>
+    <!-- Small surface details -->
+    <circle cx="250" cy="530" r="8" fill="#3f3f46" opacity="0.6"/>
+    <circle cx="920" cy="550" r="10" fill="#3f3f46" opacity="0.5"/>
+    <circle cx="450" cy="320" r="7" fill="#3f3f46" opacity="0.6"/>
+    <circle cx="800" cy="380" r="9" fill="#3f3f46" opacity="0.5"/>
+    <circle cx="550" cy="600" r="6" fill="#3f3f46" opacity="0.6"/>
 
-        <!-- Status light -->
-        <circle cx="200" cy="270" r="4" fill="#10b981">
-            <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
+    <!-- CENTRAL HEADQUARTERS (Large complex) -->
+    <g id="centralHQ" class="sector-group" data-sector="HQ" filter="url(#shadow)">
+        <!-- Main building - left face -->
+        <path d="M 520 380 L 600 340 L 600 300 L 520 340 Z" fill="#fbbf24"/>
+        <!-- Main building - right face -->
+        <path d="M 600 340 L 680 380 L 680 340 L 600 300 Z" fill="#f59e0b"/>
+        <!-- Main building - top face -->
+        <path d="M 520 340 L 600 300 L 680 340 L 600 380 Z" fill="#fde047"/>
+
+        <!-- Roof antenna -->
+        <line x1="600" y1="300" x2="600" y2="270" stroke="#fbbf24" stroke-width="3"/>
+        <circle cx="600" cy="268" r="6" fill="#fbbf24">
+            <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
         </circle>
+
+        <!-- Windows -->
+        <rect x="540" y="320" width="10" height="12" fill="#1e293b" opacity="0.7"/>
+        <rect x="560" y="320" width="10" height="12" fill="#ffeb3b"/>
+        <rect x="620" y="325" width="10" height="12" fill="#ffeb3b"/>
+        <rect x="640" y="325" width="10" height="12" fill="#1e293b" opacity="0.7"/>
+
+        <!-- Side tower left -->
+        <path d="M 480 400 L 520 380 L 520 350 L 480 370 Z" fill="#f59e0b"/>
+        <path d="M 480 370 L 520 350 L 540 360 L 500 380 Z" fill="#fbbf24"/>
+
+        <!-- Side tower right -->
+        <path d="M 680 380 L 720 400 L 720 370 L 680 350 Z" fill="#f59e0b"/>
+        <path d="M 680 350 L 720 370 L 700 380 L 660 360 Z" fill="#fbbf24"/>
+
+        <!-- Workers at HQ -->
+        <text x="570" y="415" font-size="18">👷</text>
+        <text x="620" y="420" font-size="18">👨‍💼</text>
+        <text x="550" y="435" font-size="16">🧀</text>
+        <text x="640" y="435" font-size="16">🧀</text>
 
         <!-- Label -->
-        <text x="180" y="370" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Brie Basin</text>
-        <text x="180" y="385" text-anchor="middle" font-size="10" fill="#10b981">⛏️ Active Mining</text>
+        <text x="600" y="460" text-anchor="middle" font-size="16" font-weight="bold" fill="#fbbf24">🧀 HQ 🧀</text>
+        <text x="600" y="475" text-anchor="middle" font-size="11" fill="#ffffff">Command Center</text>
     </g>
 
-    <!-- SECTOR B: Camembert Crater - Top Right (Strike - Red) -->
-    <g id="sectorB" class="sector-group strike" data-sector="B" filter="url(#dropShadow)">
-        <!-- Base platform -->
-        <path d="M 720 280 L 800 320 L 800 340 L 720 300 Z" fill="#ef4444" opacity="0.3"/>
-        <path d="M 800 360 L 720 320 L 640 280 L 720 300 Z" fill="#ef4444" opacity="0.2"/>
+    <!-- SECTOR A: Brie Basin Mining (Top Left) - ACTIVE -->
+    <g id="sectorA" class="sector-group" data-sector="A" filter="url(#shadow)">
+        <!-- Mining facility -->
+        <path d="M 250 340 L 310 310 L 310 280 L 250 310 Z" fill="#10b981"/>
+        <path d="M 310 310 L 370 340 L 370 310 L 310 280 Z" fill="#059669"/>
+        <path d="M 250 310 L 310 280 L 370 310 L 310 340 Z" fill="#34d399"/>
 
-        <!-- Building cube -->
-        <path d="M 780 330 L 740 310 L 740 280 L 780 300 Z" fill="#ef4444"/>
-        <path d="M 740 310 L 700 290 L 700 260 L 740 280 Z" fill="#dc2626"/>
-        <path d="M 780 300 L 740 280 L 700 260 L 740 280 L 780 300 Z" fill="#f87171"/>
+        <!-- Mining equipment -->
+        <path d="M 280 360 L 310 345 L 340 360 Z" fill="#71717a"/>
 
-        <!-- Strike warning -->
-        <circle cx="740" cy="290" r="35" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.4">
-            <animate attributeName="r" values="30;40;30" dur="2s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Status light -->
-        <circle cx="720" cy="270" r="4" fill="#ef4444">
-            <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Label -->
-        <text x="740" y="370" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Camembert Crater</text>
-        <text x="740" y="385" text-anchor="middle" font-size="10" fill="#ef4444">🪧 ON STRIKE</text>
-    </g>
-
-    <!-- CENTRAL HQ - Center (Gold/Cheese colored) -->
-    <g id="centralHQ" class="hub" filter="url(#dropShadow)">
-        <!-- Large base platform -->
-        <path d="M 500 400 L 580 360 L 580 380 L 500 420 Z" fill="#fbbf24" opacity="0.3"/>
-        <path d="M 420 360 L 500 400 L 580 360 L 500 340 Z" fill="#fbbf24" opacity="0.2"/>
-
-        <!-- Main building (larger) -->
-        <path d="M 450 340 L 500 310 L 500 260 L 450 290 Z" fill="#fbbf24"/>
-        <path d="M 500 310 L 550 340 L 550 290 L 500 260 Z" fill="#f59e0b"/>
-        <path d="M 450 290 L 500 260 L 550 290 L 500 320 Z" fill="#fde047"/>
-
-        <!-- Antenna -->
-        <line x1="500" y1="260" x2="500" y2="230" stroke="#fbbf24" stroke-width="2"/>
-        <circle cx="500" cy="228" r="5" fill="#fbbf24">
-            <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite"/>
-        </circle>
-
-        <!-- Cheese icon on top -->
-        <text x="500" y="315" text-anchor="middle" font-size="24">🧀</text>
-
-        <!-- Label -->
-        <text x="500" y="445" text-anchor="middle" font-size="16" font-weight="600" fill="#ffffff">🧀 HEADQUARTERS 🧀</text>
-        <text x="500" y="462" text-anchor="middle" font-size="11" fill="#fbbf24">Fromage Command Center</text>
-    </g>
-
-    <!-- SECTOR C: Roquefort Ridge - Bottom Left (Active - Green) -->
-    <g id="sectorC" class="sector-group" data-sector="C" filter="url(#dropShadow)">
-        <!-- Base platform -->
-        <path d="M 250 470 L 330 430 L 330 450 L 250 490 Z" fill="#10b981" opacity="0.3"/>
-        <path d="M 170 510 L 250 470 L 330 430 L 250 450 Z" fill="#10b981" opacity="0.2"/>
-
-        <!-- Building cube -->
-        <path d="M 190 480 L 230 460 L 230 430 L 190 450 Z" fill="#10b981"/>
-        <path d="M 230 460 L 270 440 L 270 410 L 230 430 Z" fill="#059669"/>
-        <path d="M 190 450 L 230 430 L 270 410 L 230 430 L 190 450 Z" fill="#34d399"/>
-
-        <!-- Robot -->
-        <text x="230" y="455" text-anchor="middle" font-size="20">🤖</text>
+        <!-- Workers mining -->
+        <text x="270" y="375" font-size="18">👷</text>
+        <text x="310" y="380" font-size="18">⛏️</text>
+        <text x="340" y="375" font-size="18">👷</text>
 
         <!-- Cheese deposits -->
-        <text x="210" y="500" font-size="16">🧀</text>
+        <text x="220" y="360" font-size="22">🧀</text>
+        <text x="250" y="385" font-size="18">🧀</text>
+        <text x="350" y="390" font-size="16">🧀</text>
+
+        <!-- Active indicator -->
+        <circle cx="310" cy="275" r="5" fill="#10b981">
+            <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
 
         <!-- Label -->
-        <text x="230" y="520" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Roquefort Ridge</text>
-        <text x="230" y="535" text-anchor="middle" font-size="10" fill="#10b981">🤖 Robot Operations</text>
+        <text x="310" y="405" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Brie Basin</text>
+        <text x="310" y="418" text-anchor="middle" font-size="10" fill="#10b981">Active Mining ⛏️</text>
     </g>
 
-    <!-- SECTOR D: Gruyère Gulch - Bottom Right (Depleted - Gray) -->
-    <g id="sectorD" class="sector-group depleted" data-sector="D" filter="url(#dropShadow)">
-        <!-- Base platform -->
-        <path d="M 670 430 L 750 470 L 750 490 L 670 450 Z" fill="#9da3a8" opacity="0.3"/>
-        <path d="M 750 510 L 670 470 L 590 430 L 670 450 Z" fill="#9da3a8" opacity="0.2"/>
+    <!-- SECTOR B: Camembert Crater (Top Right) - ON STRIKE -->
+    <g id="sectorB" class="sector-group strike" data-sector="B" filter="url(#shadow)">
+        <!-- Facility -->
+        <path d="M 830 310 L 890 340 L 890 310 L 830 280 Z" fill="#ef4444"/>
+        <path d="M 890 340 L 950 310 L 950 280 L 890 310 Z" fill="#dc2626"/>
+        <path d="M 830 280 L 890 310 L 950 280 L 890 250 Z" fill="#f87171"/>
 
-        <!-- Building cube (abandoned) -->
-        <path d="M 730 480 L 690 460 L 690 430 L 730 450 Z" fill="#71717a" opacity="0.7"/>
-        <path d="M 690 460 L 650 440 L 650 410 L 690 430 Z" fill="#52525b" opacity="0.7"/>
-        <path d="M 730 450 L 690 430 L 650 410 L 690 430 L 730 450 Z" fill="#a1a1aa" opacity="0.5"/>
+        <!-- Striking workers -->
+        <text x="850" y="375" font-size="18">🪧</text>
+        <text x="870" y="380" font-size="18">😤</text>
+        <text x="890" y="375" font-size="18">🪧</text>
+        <text x="910" y="380" font-size="18">😤</text>
 
-        <!-- Depletion X -->
-        <line x1="670" y1="425" x2="710" y2="455" stroke="#9da3a8" stroke-width="3"/>
-        <line x1="710" y1="425" x2="670" y2="455" stroke="#9da3a8" stroke-width="3"/>
+        <!-- Strike warning circle -->
+        <circle cx="890" cy="320" r="40" fill="none" stroke="#ef4444" stroke-width="2" opacity="0.5">
+            <animate attributeName="r" values="35;45;35" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
 
         <!-- Label -->
-        <text x="690" y="520" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Gruyère Gulch</text>
-        <text x="690" y="535" text-anchor="middle" font-size="10" fill="#9da3a8">❌ Depleted</text>
+        <text x="890" y="405" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Camembert Crater</text>
+        <text x="890" y="418" text-anchor="middle" font-size="10" fill="#ef4444">ON STRIKE 🪧</text>
     </g>
 
-    <!-- Transport lines (dotted paths between sectors and HQ) -->
-    <g class="transport-lines" stroke-dasharray="5,5" stroke-width="2" opacity="0.5">
-        <line x1="200" y1="320" x2="450" y2="350" stroke="#10b981"/>
-        <line x1="740" y1="320" x2="550" y2="350" stroke="#ef4444"/>
-        <line x1="250" y1="470" x2="450" y2="400" stroke="#10b981"/>
-        <line x1="670" y1="470" x2="550" y2="400" stroke="#71717a"/>
+    <!-- SECTOR C: Roquefort Ridge (Bottom Left) - ROBOT OPS -->
+    <g id="sectorC" class="sector-group" data-sector="C" filter="url(#shadow)">
+        <!-- Facility -->
+        <path d="M 300 520 L 360 490 L 360 460 L 300 490 Z" fill="#10b981"/>
+        <path d="M 360 490 L 420 520 L 420 490 L 360 460 Z" fill="#059669"/>
+        <path d="M 300 490 L 360 460 L 420 490 L 360 520 Z" fill="#34d399"/>
+
+        <!-- Robots working -->
+        <text x="310" y="545" font-size="20">🤖</text>
+        <text x="350" y="555" font-size="20">🤖</text>
+        <text x="385" y="550" font-size="20">🤖</text>
+
+        <!-- Cheese production -->
+        <text x="330" y="530" font-size="16">🧀</text>
+        <text x="270" y="515" font-size="18">🧀</text>
+
+        <!-- Label -->
+        <text x="360" y="580" text-anchor="middle" font-size="13" font-weight="600" fill="#ffffff">Roquefort Ridge</text>
+        <text x="360" y="593" text-anchor="middle" font-size="10" fill="#10b981">Robot Ops 🤖</text>
     </g>
 
-    <!-- Floating cheese decorations -->
-    <g class="floating-cheese-svg" opacity="0.4">
-        <text x="150" y="200" font-size="24">🧀
-            <animate attributeName="y" values="200;180;200" dur="4s" repeatCount="indefinite"/>
+    <!-- SECTOR D: Gruyère Gulch (Bottom Right) - DEPLETED -->
+    <g id="sectorD" class="sector-group depleted" data-sector="D" filter="url(#shadow)">
+        <!-- Abandoned facility -->
+        <path d="M 840 490 L 900 520 L 900 490 L 840 460 Z" fill="#52525b" opacity="0.6"/>
+        <path d="M 900 520 L 960 490 L 960 460 L 900 490 Z" fill="#3f3f46" opacity="0.6"/>
+        <path d="M 840 460 L 900 490 L 960 460 L 900 430 Z" fill="#71717a" opacity="0.5"/>
+
+        <!-- Depletion markers -->
+        <line x1="870" y1="510" x2="930" y2="465" stroke="#9da3a8" stroke-width="4"/>
+        <line x1="930" y1="510" x2="870" y2="465" stroke="#9da3a8" stroke-width="4"/>
+
+        <!-- Label -->
+        <text x="900" y="555" text-anchor="middle" font-size="13" font-weight="600" fill="#9da3a8">Gruyère Gulch</text>
+        <text x="900" y="568" text-anchor="middle" font-size="10" fill="#9da3a8">Depleted ❌</text>
+    </g>
+
+    <!-- STORAGE SILO (Near HQ) -->
+    <g filter="url(#shadow)">
+        <ellipse cx="480" cy="460" rx="20" ry="10" fill="#71717a"/>
+        <rect x="460" y="425" width="40" height="35" fill="#a1a1aa"/>
+        <ellipse cx="480" cy="425" rx="20" ry="10" fill="#d4d4d8"/>
+        <text x="480" y="470" text-anchor="middle" font-size="9" fill="#ffffff">STORAGE</text>
+    </g>
+
+    <!-- LANDING PAD (Near HQ) -->
+    <g filter="url(#shadow)">
+        <path d="M 680 450 L 730 430 L 780 450 L 730 470 Z" fill="#3f3f46" opacity="0.8"/>
+        <text x="730" y="458" text-anchor="middle" font-size="24">🚀</text>
+        <text x="730" y="480" text-anchor="middle" font-size="9" fill="#fbbf24">LANDING PAD</text>
+    </g>
+
+    <!-- Transport vehicles between sectors -->
+    <g class="transport">
+        <!-- Truck to HQ from Sector A -->
+        <text x="450" y="400" font-size="18">🚚
+            <animateMotion dur="15s" repeatCount="indefinite"
+                path="M 0,0 L 80,-30 L 80,-30 L 0,0"/>
         </text>
-        <text x="850" y="250" font-size="20">🧀
-            <animate attributeName="y" values="250;230;250" dur="5s" repeatCount="indefinite"/>
-        </text>
-        <text x="300" y="180" font-size="18">🧀
-            <animate attributeName="y" values="180;160;180" dur="6s" repeatCount="indefinite"/>
+
+        <!-- Robot moving -->
+        <text x="500" y="500" font-size="16">🤖
+            <animateMotion dur="12s" repeatCount="indefinite"
+                path="M 0,0 L -100,20 L -100,20 L 0,0"/>
         </text>
     </g>
+
+    <!-- Connecting roads (dotted lines) -->
+    <g class="roads" stroke="#9da3a8" stroke-width="2" stroke-dasharray="4,4" opacity="0.4">
+        <path d="M 310 340 L 520 380"/>
+        <path d="M 890 340 L 680 380"/>
+        <path d="M 360 520 L 520 440"/>
+        <path d="M 900 520 L 680 440"/>
+    </g>
+
+    <!-- Floating cheese in space -->
+    <text x="180" y="200" font-size="28" opacity="0.5">🧀
+        <animate attributeName="y" values="200;170;200" dur="5s" repeatCount="indefinite"/>
+    </text>
+    <text x="1000" y="250" font-size="24" opacity="0.4">🧀
+        <animate attributeName="y" values="250;220;250" dur="6s" repeatCount="indefinite"/>
+    </text>
 
     <!-- Orbiting cheese around HQ -->
-    <g class="orbiting-cheese">
-        <text font-size="22" fill="#fbbf24" opacity="0.7">
-            <animateMotion dur="10s" repeatCount="indefinite"
-                path="M 500,340 m -80,0 a 80,60 0 1,1 160,0 a 80,60 0 1,1 -160,0"/>
-            🧀
-        </text>
-        <text font-size="18" fill="#fbbf24" opacity="0.6">
-            <animateMotion dur="8s" repeatCount="indefinite"
-                path="M 500,340 m -90,0 a 90,70 0 1,0 180,0 a 90,70 0 1,0 -180,0"/>
-            🧀
-        </text>
-    </g>
+    <text font-size="20" fill="#fbbf24" opacity="0.6">
+        <animateMotion dur="12s" repeatCount="indefinite"
+            path="M 600,380 m -90,0 a 90,70 0 1,1 180,0 a 90,70 0 1,1 -180,0"/>
+        🧀
+    </text>
 </svg>
                     </div>
                     <div class="map-legend">
@@ -381,7 +421,12 @@
 
                     <!-- Claude Artifact - Jean-Claude Fromage AI Chat -->
                     <div class="artifact-container">
-                        <iframe src="https://claude.site/public/artifacts/3e0b3161-ee6f-4455-8bc9-5874f154fa04/embed" title="Jean-Claude Fromage CEO Chat" width="100%" height="600" frameborder="0" allow="clipboard-write" allowfullscreen></iframe>
+                        <div class="artifact-preview">
+                            <p>Chat with our CEO, Jean-Claude Fromage, powered by Claude AI.</p>
+                            <button class="artifact-launch-btn" onclick="window.open('https://claude.site/artifacts/3e0b3161-ee6f-4455-8bc9-5874f154fa04', '_blank')">
+                                Launch Chat with Jean-Claude
+                            </button>
+                        </div>
                     </div>
                     </section>
                 </div>

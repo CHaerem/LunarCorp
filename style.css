@@ -452,11 +452,43 @@ header {
     background: var(--bg-surface);
 }
 
-.artifact-container iframe {
-    width: 100%;
-    height: 600px;
+.artifact-preview {
+    padding: var(--space-2xl);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.artifact-preview p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+    font-size: 1rem;
+}
+
+.artifact-launch-btn {
+    background: var(--accent-primary);
+    color: white;
     border: none;
-    display: block;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--space-sm);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.artifact-launch-btn:hover {
+    background: #2d3748;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.artifact-launch-btn:active {
+    transform: translateY(0);
 }
 
 /* Footer */
