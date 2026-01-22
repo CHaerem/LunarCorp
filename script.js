@@ -136,17 +136,18 @@ function handleSvgSectorClick(e) {
     };
 
     const sectorName = sectorNames[sectorId];
-    const circle = sectorGroup.querySelector('circle');
 
-    // Visual feedback
-    const originalOpacity = circle.getAttribute('opacity') || '0.7';
-    circle.setAttribute('opacity', '1');
+    // Visual feedback - pulse the building
+    const originalTransform = sectorGroup.getAttribute('transform') || '';
+    sectorGroup.style.transform = 'scale(1.1)';
+    sectorGroup.style.transformOrigin = 'center';
+    sectorGroup.style.transition = 'transform 0.3s';
 
     setTimeout(() => {
-        circle.setAttribute('opacity', originalOpacity);
+        sectorGroup.style.transform = 'scale(1)';
     }, 300);
 
-    console.log(`Clicked on ${sectorName} (Sector ${sectorId})`);
+    console.log(`🧀 Clicked on ${sectorName} (Sector ${sectorId})`);
 
     // Could trigger a modal or info panel here
     showSectorInfo(sectorName, sectorId);
@@ -188,26 +189,36 @@ function simulateSectorChanges() {
                 // End strike
                 sectorB.classList.remove('strike');
                 sectorB.classList.add('active');
-                const circle = sectorB.querySelector('circle');
-                circle.setAttribute('stroke', '#2ecc71');
-                circle.setAttribute('fill', '#2a4a2a');
 
-                const statusText = sectorB.querySelectorAll('text')[2];
+                // Update building colors to green (active)
+                const paths = sectorB.querySelectorAll('path');
+                paths[0].setAttribute('fill', '#10b981');
+                paths[1].setAttribute('fill', '#10b981');
+                paths[2].setAttribute('fill', '#10b981');
+                paths[3].setAttribute('fill', '#059669');
+                paths[4].setAttribute('fill', '#34d399');
+
+                const statusText = sectorB.querySelectorAll('text')[1];
                 statusText.textContent = '⛏️ Active Mining';
-                statusText.setAttribute('fill', '#2ecc71');
+                statusText.setAttribute('fill', '#10b981');
 
                 console.log('🎉 Camembert Crater workers ended their strike!');
             } else {
                 // Start strike
                 sectorB.classList.remove('active');
                 sectorB.classList.add('strike');
-                const circle = sectorB.querySelector('circle');
-                circle.setAttribute('stroke', '#ff4757');
-                circle.setAttribute('fill', '#4a2a2a');
 
-                const statusText = sectorB.querySelectorAll('text')[2];
+                // Update building colors to red (strike)
+                const paths = sectorB.querySelectorAll('path');
+                paths[0].setAttribute('fill', '#ef4444');
+                paths[1].setAttribute('fill', '#ef4444');
+                paths[2].setAttribute('fill', '#ef4444');
+                paths[3].setAttribute('fill', '#dc2626');
+                paths[4].setAttribute('fill', '#f87171');
+
+                const statusText = sectorB.querySelectorAll('text')[1];
                 statusText.textContent = '🪧 ON STRIKE';
-                statusText.setAttribute('fill', '#ff4757');
+                statusText.setAttribute('fill', '#ef4444');
 
                 console.log('😤 Camembert Crater workers went on strike again!');
             }
