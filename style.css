@@ -51,9 +51,9 @@ body {
 .cheese-float {
     position: absolute;
     font-size: 2rem;
-    opacity: 0.3;
-    animation: floatCheese 15s infinite ease-in-out;
-    filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.5));
+    opacity: 0.15;
+    animation: floatCheese 20s infinite ease-in-out;
+    filter: drop-shadow(0 0 10px rgba(244, 196, 48, 0.3));
 }
 
 @keyframes floatCheese {
@@ -62,10 +62,10 @@ body {
         opacity: 0;
     }
     10% {
-        opacity: 0.3;
+        opacity: 0.15;
     }
     90% {
-        opacity: 0.3;
+        opacity: 0.15;
     }
     100% {
         transform: translateY(-100px) rotate(360deg);
@@ -177,11 +177,12 @@ header {
 }
 
 .map-visual-container {
-    background: var(--bg-dark);
+    background: #0a0a15;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
 }
 
 #lunarBaseSvg {
@@ -199,10 +200,22 @@ header {
 
 .sector-group:hover {
     opacity: 1 !important;
+    transform: scale(1.02);
+    transform-origin: center;
 }
 
-.sector-group:hover circle {
+.sector-group:hover path {
     filter: brightness(1.3);
+}
+
+.hub {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hub:hover {
+    transform: scale(1.03);
+    transform-origin: center;
 }
 
 .robot {
